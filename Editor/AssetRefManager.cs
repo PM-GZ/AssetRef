@@ -41,10 +41,11 @@ public class AssetRefManager
         List<string> assetGUIDs = AssetDatabase.FindAssets("t:Object", new string[] { SearchFloder }).ToList();
         mFileExtends.Add("*");
 
+        GetExtends(assetGUIDs);
         FindAssetReference(assetGUIDs);
     }
 
-    private void FindAssetReference(List<string> assetGUIDs)
+    private void GetExtends(List<string> assetGUIDs)
     {
         for (int i = assetGUIDs.Count - 1; i >= 0; i--)
         {
@@ -54,6 +55,10 @@ public class AssetRefManager
             if (!CheckFileEligible(path))
                 assetGUIDs.RemoveAt(i);
         }
+    }
+
+    private void FindAssetReference(List<string> assetGUIDs)
+    {
         foreach (var guid in assetGUIDs)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
